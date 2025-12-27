@@ -1,26 +1,28 @@
-# 🧠 Multi-Modal Sentiment Analysis (Text + Image)
+🧠 Multi-Modal Sentiment Analysis (Text + Image)
 
-An end-to-end **Multi-Modal Sentiment Analysis system** that predicts sentiment by jointly analyzing **text and image data** from social media posts.
+An end-to-end Multi-Modal Sentiment Analysis system that predicts sentiment by jointly analyzing text and image data from social media posts.
 
-The project uses **Transformer-based text encoding (BERT)** and **CNN-based image feature extraction (ResNet-50)**, followed by a fusion-based classifier and a **Streamlit web interface** for interactive inference.
+The project uses Transformer-based text encoding (BERT) and CNN-based image feature extraction (ResNet-50), followed by a fusion-based classifier and a Streamlit web interface for real-time inference.
 
----
+🚀 Key Features
 
-## 🚀 Key Features
+📝 Text Feature Extraction using BERT (Hugging Face Transformers)
 
-- 📝 **Text Feature Extraction** using **BERT (Hugging Face Transformers)**
-- 🖼️ **Image Feature Extraction** using **ResNet-50 (ImageNet pretrained)**
-- 🔗 **Late fusion** of text and image embeddings
-- ⚖️ **Class-weighted Loss** to handle class imbalance
-- 🔧 **Selective fine-tuning** of the last BERT layer
-- 📊 Strong evaluation performance (**Macro-F1 = 0.74**)
-- 🌐 **Streamlit web app** for real-time predictions
-- ☁️ Runs offline (full inference) and online (demo mode)
+🖼️ Image Feature Extraction using ResNet-50 (ImageNet pretrained)
 
----
+🔗 Late fusion of text and image embeddings
 
-## 📂 Project Structure
+⚖️ Class-weighted loss to handle class imbalance
 
+🔧 Selective fine-tuning of the last BERT layer
+
+📊 Strong evaluation performance (Macro-F1 = 0.74)
+
+🌐 Streamlit web app for real-time predictions
+
+☁️ Fully functional online and offline deployment
+
+📂 Project Structure
 multimodal-sentiment/
 │
 ├── 01_dataset_loader.ipynb
@@ -37,123 +39,109 @@ multimodal-sentiment/
 ├── report.pdf
 │
 ├── MVSA_Single/
-│ ├── data/ (downloaded from Kaggle)
-│ ├── labelResultsAll.txt (Kaggle labels)
+│   ├── data/                (downloaded from Kaggle)
+│   ├── labelResultsAll.txt
 
+📊 Dataset Source
 
+This project uses the MVSA-Single (Multi-View Sentiment Analysis) dataset.
 
----
+👉 Dataset link (Kaggle):
+https://www.kaggle.com/datasets/vincemarcs/mvsasingle
 
-## 📊 Dataset Source
-
-This project uses the **MVSA-Single** (multi-view sentiment analysis) dataset from Kaggle:
-
-👉 **Download here:**  
-https://www.kaggle.com/datasets/vincemarcs/mvsasingle?utm_source=chatgpt.com
-
-### How to use it
+Dataset Setup
 
 After downloading:
-1. Extract the dataset
-2. Place the folder as:
 
 multimodal-sentiment/MVSA_Single/
 ├── data/
 ├── labelResultsAll.txt
 
-The code expects:
-- Text files: `*.txt` for each post
-- Images: `*.jpg` in `data/`
-- Labels: `labelResultsAll.txt` containing text–image sentiment annotations
 
----
+Expected format:
 
-## 🏗️ Model Architecture Summary
+Text files: *.txt
 
-### Text Encoder
-- Model: `BERT-base-uncased`
-- Embedding size: 768
+Images: *.jpg inside data/
 
-### Image Encoder
-- Model: `ResNet-50`
-- Embedding size: 2048
+Labels: labelResultsAll.txt
 
-### Fusion + Classifier
-- Concatenate text + image features
-- Fully connected layers with dropout for classification
+🏗️ Model Architecture
+🔹 Text Encoder
 
----
+Model: BERT-base-uncased
 
-## ⚙️ Training Strategy
+Embedding Size: 768
 
-- Class-weighted Cross-Entropy to handle imbalance
-- Partial fine-tuning (only last BERT layer)
-- Optimizer: **AdamW**
+🔹 Image Encoder
 
----
+Model: ResNet-50
 
-## 📈 Results
+Embedding Size: 2048
 
-### Performance on Validation Set
+🔹 Fusion & Classifier
 
-| Metric | Score |
-|--------|-------|
-| **Accuracy**     | 0.74 |
-| **Macro F1-Score** | 0.74 |
+Late fusion via concatenation
 
-### Confusion Matrix
+Fully connected layers with ReLU and Dropout
 
-[[186, 39, 19],
-[ 65, 274, 45],
-[ 36, 47, 263]]
+3-class sentiment classification
 
-## Model Hosting
+⚙️ Training Strategy
+
+Class-weighted CrossEntropyLoss to address imbalance
+
+Partial fine-tuning (last BERT encoder layer)
+
+Optimizer: AdamW
+
+📈 Results
+Performance on Validation Set
+Metric	Score
+Accuracy	0.74
+Macro F1-Score	0.74
+Confusion Matrix
+[[186,  39,  19],
+ [ 65, 274,  45],
+ [ 36,  47, 263]]
+
+
+The model achieves balanced performance across all sentiment classes.
+
+🧠 Model Hosting
 
 The trained model (~538 MB) is hosted on the Hugging Face Model Hub to avoid GitHub file size limits.
-The Streamlit app automatically downloads the model at runtime.
 
-Model link:
+🔗 Model Link:
 https://huggingface.co/viaan7/multimodal-sentiment-bert-resnet
 
+The Streamlit application automatically downloads the model at runtime, enabling full online inference.
 
-This shows balanced performance across all sentiment classes.
+🌐 Live Streamlit App
 
----
+🔴 Live Demo:
+https://multimodal-sentiment-analysis-e4mqzethdappjlh85qpx7bt.streamlit.app
 
-## 🌐 Streamlit App (Offline + Online)
-
-### ▶️ Offline (Local Machine)
-
-To run with full model inference:
-
-1. Download the dataset
-2. Place it under `MVSA_Single/`
-3. Make sure `multimodal_model.pth` exists in project root
-4. Run:
-
-```bash
+▶️ Run Locally
 streamlit run streamlit_app.py
-☁️ Online (Demo Mode)
-For GitHub / Streamlit Cloud deployments, the model weights file is not included due to size.
-In this case, the app:
 
-✔ Loads UI
-✔ Shows a clear warning that model weights are missing
-✔ Does not crash
 
-To run full inference, users must place the weights locally.
+The model will be downloaded automatically from Hugging Face Hub.
 
-🧠 Notes for Users
-You must download the dataset manually from Kaggle
+🧠 Notes
 
-Required project files assume dataset structure as shown above
+Dataset must be downloaded manually from Kaggle
 
-Sending model weights over the web is optional, but locally supported
+Model weights are hosted externally for scalability
 
-📌 One-Line Summary (Good for BIOS/Portfolio)
-End-to-end multi-modal sentiment analysis using BERT + ResNet-50 with class-weighted training and Streamlit deployment.
+The same codebase supports local and cloud deployment
 
-👨‍💻 Contact / Author
+📌 One-Line Summary
+
+End-to-end multi-modal sentiment analysis using BERT and ResNet-50 with class-weighted training and Streamlit deployment.
+
+👨‍💻 Author
+
 Viaan Sharma
 M.Tech – Mathematics & Computing (Machine Learning)
 National Institute of Technology Delhi
