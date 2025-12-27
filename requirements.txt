@@ -1,6 +1,7 @@
 torch
 torchvision
 transformers
+huggingface_hub
 streamlit
 pillow
 scikit-learn
