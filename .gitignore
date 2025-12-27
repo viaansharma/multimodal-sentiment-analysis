@@ -1,0 +1,14 @@
+# Dataset
+MVSA_Single/
+
+# Model weights
+*.pth
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+
+# OS files
+.DS_Store
