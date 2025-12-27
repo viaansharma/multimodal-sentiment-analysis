@@ -107,6 +107,13 @@ The code expects:
 [ 65, 274, 45],
 [ 36, 47, 263]]
 
+## Model Hosting
+
+The trained model (~538 MB) is hosted on the Hugging Face Model Hub to avoid GitHub file size limits.
+The Streamlit app automatically downloads the model at runtime.
+
+Model link:
+https://huggingface.co/viaan7/multimodal-sentiment-bert-resnet
 
 
 This shows balanced performance across all sentiment classes.
